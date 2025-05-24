@@ -11,7 +11,7 @@
 
 ## Установка
 1. Клонируйте репозиторий:
-git clone https://github.com/ТВОЙЛОГИН/ИМЯРЕПОЗИТОРИЯ.git
+git clone https://github.com/Daniel6xx9/Danil3ISiP-A.git
 
 2. Откройте `index.html` в браузере.
 
