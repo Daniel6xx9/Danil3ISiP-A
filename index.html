@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head>
+    <meta charset="UTF-8"> <!-- Устанавливаем кодировку UTF-8 для корректного отображения символов -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Адаптивность страницы для мобильных устройств -->
+    <title>SPA-органайзер</title> <!-- Заголовок страницы, отображаемый в браузере -->
+    <style>
+        body { font-family: Arial, sans-serif; } /* Устанавливаем шрифт для страницы */
+        #taskList { margin-top: 20px; } /* Добавляем отступ сверху для списка задач */
+        .task { padding: 8px; background: #f3f3f3; margin: 5px 0; } /* Оформление блока задач */
+    </style>
+</head>
+<body>
+    <h1>Органайзер задач</h1> <!-- Заголовок страницы -->
+    <input type="text" id="taskInput" placeholder="Введите задачу"> <!-- Поле ввода задачи -->
+    <button onclick="addTask()">Добавить</button> <!-- Кнопка, вызывающая функцию добавления задачи -->
+    <ul id="taskList"></ul> <!-- Список задач, куда будут добавляться новые элементы -->
+
+    <script>
+        function addTask() { 
+            const input = document.getElementById("taskInput"); // Получаем элемент ввода задачи
+            const taskList = document.getElementById("taskList"); // Получаем список задач
+
+            if (input.value.trim() === "") return; // Проверяем, что поле ввода не пустое
+
+            const task = document.createElement("li"); // Создаём новый элемент списка <li>
+            task.className = "task"; // Присваиваем класс для стилизации
+            task.textContent = input.value; // Устанавливаем текст задачи из поля ввода
+
+            taskList.appendChild(task); // Добавляем созданную задачу в список
+            input.value = ""; // Очищаем поле ввода после добавления задачи
+
+            // Обновляем историю браузера, добавляя новую задачу в URL
+            history.pushState({ task: task.textContent }, "", `?task=${task.textContent}`);
+        }
+
+        // Обработчик событий для History API: срабатывает при перемещении назад
+        window.onpopstate = function(event) { 
+            if (event.state) { 
+                alert(`Вы вернулись к задаче: ${event.state.task}`); // Показываем сообщение с вернувшейся задачей
+            }
+        };
+    </script>
+</body>
+</html>
